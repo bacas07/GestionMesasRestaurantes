@@ -5,6 +5,9 @@ import { Request, Response, NextFunction } from 'express';
 // Metodo de conexion a la base de datos
 import { connectDB } from './database/mongo.js';
 
+// Rutas principales
+import UserRouter from './routes/user.routes.js';
+
 // Importando gestor de errores
 import { errorHandler } from './middlewares/custom/errorHandler.js';
 
@@ -21,6 +24,8 @@ server.use(express.json());
 server.get('', (req: Request, res: Response, next: NextFunction) => {
   res.json({ message: 'Bienvenido al Sistema de Reservas' });
 });
+
+server.use('/user', UserRouter);
 
 server.use(errorHandler);
 

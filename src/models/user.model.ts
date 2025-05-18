@@ -117,6 +117,14 @@ class UserService {
       const updated = await this.model.findByIdAndUpdate(id, data, {
         new: true,
       });
+
+      if (!updated) {
+        throw new ApiError(
+          `No se encontraron registros para el id: ${id}`,
+          404
+        );
+      }
+
       return updated;
     } catch (error) {
       if (error instanceof ApiError) {
@@ -135,6 +143,14 @@ class UserService {
         { is_active: false },
         { new: false }
       );
+
+      if (!softDeleted) {
+        throw new ApiError(
+          `No se encontraron registros para el id: ${id}`,
+          404
+        );
+      }
+
       return softDeleted;
     } catch (error) {
       if (error instanceof ApiError) {
@@ -149,6 +165,14 @@ class UserService {
   async strongDelete(id: string): Promise<IUser | null> {
     try {
       const strongDeleted = await this.model.findByIdAndDelete(id);
+
+      if (!strongDeleted) {
+        throw new ApiError(
+          `No se encontraron registros para el id: ${id}`,
+          404
+        );
+      }
+
       return strongDeleted;
     } catch (error) {
       if (error instanceof ApiError) {
