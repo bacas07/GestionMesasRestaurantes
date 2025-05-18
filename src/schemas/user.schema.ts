@@ -37,6 +37,10 @@ const UserSchema = new Schema<IUserMongoose>({
   history: {
     type: [ReservationSchema],
   },
+  is_active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-export const UserModel = model<IUser>('User', UserSchema, 'User')
+export const UserModel = model<IUser>('User', UserSchema, 'User');
