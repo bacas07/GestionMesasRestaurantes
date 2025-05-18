@@ -12,7 +12,7 @@ export const connectDB = async () => {
     console.log('> Servidor conectado a la base de datos');
   } catch (error) {
     throw new ApiError(
-      `Error connecting to database: ${(error as Error).message}`,
+      `Error connecting to database -> ${(error as Error).message}`,
       500
     );
   }

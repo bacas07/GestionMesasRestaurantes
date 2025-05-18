@@ -31,7 +31,7 @@ const startServer = async () => {
       console.log(`> Server activo en puerto: ${PORT}`);
     });
   } catch (error) {
-    console.error(`Error activando el servidor: ${(error as Error).message}`);
+    console.error(`Error activando el servidor -> ${(error as Error).message}`);
     process.exit(1);
   }
 };
