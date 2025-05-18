@@ -21,6 +21,36 @@ class UserService {
     }
   }
 
+  async getAllActive(): Promise<IUser[] | null> {
+    try {
+      const result = await this.model.find({ is_active: true });
+      return result;
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(
+        `Error User model getAllActive: ${(error as Error).message}`,
+        500
+      );
+    }
+  }
+
+  async getAllUnactive(): Promise<IUser[] | null> {
+    try {
+      const result = await this.model.find({ is_active: false });
+      return result;
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError(
+        `Error User model getAllUnactive: ${(error as Error).message}`,
+        500
+      );
+    }
+  }
+
   async getById(id: string): Promise<IUser | null> {
     try {
       const result = await this.model.findById(id);
@@ -130,3 +160,5 @@ class UserService {
     }
   }
 }
+
+export default new UserService();
