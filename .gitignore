@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Output de TypeScript
+dist/
+
+# Archivos temporales
+*.log
+*.tmp
+*.temp
+
+# Configuraciones del sistema operativo/editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Env variables
+.env
+.env.*.local
+
+# Package Json y tscofig
+package-lock.json
+tscofig.json
