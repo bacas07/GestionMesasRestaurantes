@@ -5,15 +5,91 @@ import ApiError from '../errors/apiError.js';
 class UserController {
   private model = userModel;
 
-  async getAll() {}
+  async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await this.model.getAll();
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  async getById() {}
+  async getAllActive(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await this.model.getAllActive();
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  async getOne() {}
+  async getAllUnactive(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await this.model.getAllUnactive();
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  async create() {}
+  async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.model.getById(id);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  async update() {}
+  async getOne(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { filter } = req.body;
+      const data = await this.model.getOne(filter);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-  async delete() {}
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await this.model.create(req.body);
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.model.update(id, req.body);
+      return res.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async softDelete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.model.softDelete(id);
+      return res.status(204).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async strongDelete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.model.strongDelete(id);
+      return res.status(204).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
+
+export default new UserController();
