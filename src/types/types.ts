@@ -7,6 +7,7 @@ export interface IUser {
   number: number;
   history: [IReservation];
   is_active: boolean;
+  role: string;
 }
 
 // Interfaz para validar ingreso de reservas para historial de usuario
@@ -32,6 +33,7 @@ export interface IUserMongoose extends Document {
   number: number;
   history: [IReservation];
   is_active: boolean;
+  role: string;
 }
 
 export interface IReservationMongoose extends Document {

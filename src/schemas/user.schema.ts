@@ -45,6 +45,11 @@ const UserSchema = new Schema<IUserMongoose>({
     type: Boolean,
     default: true,
   },
+  role: {
+    type: String,
+    default: 'user',
+    enum: ['user', 'admin'],
+  },
 });
 
 export const UserModel = model<IUser>('User', UserSchema, 'User');
