@@ -11,6 +11,7 @@ export interface IUser {
 
 // Interfaz para validar ingreso de reservas para historial de usuario
 export interface IReservation {
+  userId: string;
   table: string;
   date: string;
   hour: string;
@@ -24,4 +25,12 @@ export interface IUserMongoose extends Document {
   number: number;
   history: [IReservation];
   is_active: boolean;
+}
+
+export interface IReservationMongoose extends Document {
+  userId: string;
+  table: string;
+  date: string;
+  hour: string;
+  people: number;
 }

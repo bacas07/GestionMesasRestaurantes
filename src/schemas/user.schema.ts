@@ -2,6 +2,10 @@ import { Schema, model } from 'mongoose';
 import type { IReservation, IUserMongoose, IUser } from '../types/types';
 
 const ReservationSchema = new Schema<IReservation>({
+  userId: {
+    type: String,
+    required: true,
+  },
   table: {
     type: String,
     required: true,

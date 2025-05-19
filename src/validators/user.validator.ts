@@ -1,6 +1,7 @@
 import { object, string, number, array } from 'valibot';
 
 const ReservationSchema = object({
+  userId: string(),
   table: string(),
   date: string(),
   hour: string(),
