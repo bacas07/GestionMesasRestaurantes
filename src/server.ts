@@ -7,6 +7,7 @@ import { connectDB } from './database/mongo.js';
 
 // Rutas principales
 import UserRouter from './routes/user.routes.js';
+import ReservationRouter from './routes/reservation.routes.js';
 
 // Importando gestor de errores
 import { errorHandler } from './middlewares/custom/errorHandler.js';
@@ -26,6 +27,7 @@ server.get('', (req: Request, res: Response, next: NextFunction) => {
 });
 
 server.use('/user', UserRouter);
+server.use('/reservation', ReservationRouter);
 
 server.use(errorHandler);
 
