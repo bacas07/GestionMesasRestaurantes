@@ -14,3 +14,7 @@ export const UserSchema = object({
   number: number(),
   history: array(ReservationSchema),
 });
+
+export const TableSchema = object({
+  name: string(),
+});
