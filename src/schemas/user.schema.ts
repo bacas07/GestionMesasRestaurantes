@@ -6,7 +6,7 @@ const ReservationSchema = new Schema<IReservation>({
     type: String,
     required: true,
   },
-  table: {
+  tableId: {
     type: String,
     required: true,
     unique: true,

@@ -12,10 +12,11 @@ export interface IUser {
 // Interfaz para validar ingreso de reservas para historial de usuario
 export interface IReservation {
   userId: string;
-  table: string;
+  tableId: string;
   date: string;
   hour: string;
   people: number;
+  is_active: boolean;
 }
 
 // Interfaz para creacion de modelo con mongoose
@@ -29,8 +30,9 @@ export interface IUserMongoose extends Document {
 
 export interface IReservationMongoose extends Document {
   userId: string;
-  table: string;
+  tableId: string;
   date: string;
   hour: string;
   people: number;
+  is_active: boolean;
 }

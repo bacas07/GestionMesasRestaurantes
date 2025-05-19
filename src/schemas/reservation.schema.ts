@@ -1,12 +1,12 @@
 import { Schema, model } from 'mongoose';
 import type { IReservation, IReservationMongoose } from '../types/types.js';
 
-const ReservationSchema = new Schema<IReservation>({
+const ReservationSchema = new Schema<IReservationMongoose>({
   userId: {
     type: String,
     required: true,
   },
-  table: {
+  tableId: {
     type: String,
     required: true,
     unique: true,
@@ -22,6 +22,9 @@ const ReservationSchema = new Schema<IReservation>({
   people: {
     type: Number,
     required: true,
+  },
+  is_active: {
+    type: Boolean,
   },
 });
 
