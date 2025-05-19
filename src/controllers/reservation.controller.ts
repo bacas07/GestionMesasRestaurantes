@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import userModel from '../models/user.model.js';
+import ReservationModel from '../models/reservation.model.js';
 import { parse } from 'valibot';
-import { UserSchema } from '../validators/validators.js';
-import type { IUser } from '../types/types.js';
+import { ReservationSchema } from '../validators/validators.js';
+import type { IReservation } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 
-class UserController {
-  private model = userModel;
+class ReservationController {
+  private model = ReservationModel;
 
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
@@ -55,6 +55,26 @@ class UserController {
     }
   }
 
+  async getByUserId(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.model.getByUserId(id);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getByTableId(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const data = await this.model.getByTableId(id);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       try {
@@ -62,7 +82,7 @@ class UserController {
           return res.status(400).json({ error: 'Payload invalido' });
         }
 
-        const parseData = parse(UserSchema, req.body) as IUser;
+        const parseData = parse(ReservationSchema, req.body) as IReservation;
         const data = await this.model.create(parseData);
         return res.status(201).json(data);
       } catch (ValidationError) {
@@ -104,4 +124,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new ReservationController();

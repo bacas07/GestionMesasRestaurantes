@@ -1,6 +1,6 @@
 import { object, string, number, array } from 'valibot';
 
-const ReservationSchema = object({
+export const ReservationSchema = object({
   userId: string(),
   tableId: string(),
   date: string(),
