@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import userModel from '../models/user.model.js';
+import { parse } from 'valibot';
+import { UserSchema } from '../validators/user.validator.js';
+import type { IUser } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 
 class UserController {
@@ -54,8 +57,17 @@ class UserController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = await this.model.create(req.body);
-      return res.status(201).json(data);
+      try {
+        if (!req.body || typeof req.body !== 'object') {
+          return res.status(400).json({ error: 'Payload invalido' });
+        }
+
+        const parseData = parse(UserSchema, req.body) as IUser;
+        const data = await this.model.create(parseData);
+        return res.status(201).json(data);
+      } catch (ValidationError) {
+        throw new ApiError('Error en la validacion de los datos', 400);
+      }
     } catch (error) {
       next(error);
     }
