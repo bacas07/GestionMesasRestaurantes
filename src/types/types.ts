@@ -19,6 +19,12 @@ export interface IReservation {
   is_active: boolean;
 }
 
+// Interfaz para validar ingreso mesas
+export interface ITable {
+  name: string;
+  is_active: boolean;
+}
+
 // Interfaz para creacion de modelo con mongoose
 export interface IUserMongoose extends Document {
   name: string;
@@ -34,5 +40,10 @@ export interface IReservationMongoose extends Document {
   date: string;
   hour: string;
   people: number;
+  is_active: boolean;
+}
+
+export interface ITableMongoose extends Document {
+  name: string;
   is_active: boolean;
 }
