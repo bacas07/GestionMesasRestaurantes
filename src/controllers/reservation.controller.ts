@@ -86,7 +86,10 @@ class ReservationController {
         const data = await this.model.create(parseData);
         return res.status(201).json(data);
       } catch (ValidationError) {
-        throw new ApiError('Error en la validacion de los datos', 400);
+        throw new ApiError(
+          `Error en la validacion de los datos -> ${ValidationError}`,
+          400
+        );
       }
     } catch (error) {
       next(error);
