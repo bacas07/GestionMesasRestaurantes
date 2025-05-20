@@ -7,6 +7,19 @@ const TableSchema = new Schema<ITableMongoose>({
     required: true,
     unique: true,
   },
+  capacity: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+    enum: ['window', 'terrace', 'indoor', 'bar'],
+  },
+  status: {
+    type: String,
+    enum: ['available', 'occupied', 'reserved'],
+  },
   is_active: {
     type: Boolean,
     default: true,
