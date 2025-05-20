@@ -1,11 +1,11 @@
-import { UserModel } from '../schemas/user.schema.js';
-import { IUser, IUserMongoose } from '../types/types.js';
+import { AdminModel } from '../schemas/admin.schema.js';
+import { IAdmin, IAdminMongoose } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 
 class UserService {
-  private model = UserModel;
+  private model = AdminModel;
 
-  async getAll(): Promise<IUser[] | null> {
+  async getAll(): Promise<IAdmin[] | null> {
     try {
       const result = await this.model.find();
       return result;
@@ -20,7 +20,7 @@ class UserService {
     }
   }
 
-  async getAllActive(): Promise<IUser[] | null> {
+  async getAllActive(): Promise<IAdmin[] | null> {
     try {
       const result = await this.model.find({ is_active: true });
       return result;
@@ -35,7 +35,7 @@ class UserService {
     }
   }
 
-  async getAllUnactive(): Promise<IUser[] | null> {
+  async getAllUnactive(): Promise<IAdmin[] | null> {
     try {
       const result = await this.model.find({ is_active: false });
       return result;
@@ -50,7 +50,7 @@ class UserService {
     }
   }
 
-  async getById(id: string): Promise<IUserMongoose | null> {
+  async getById(id: string): Promise<IAdminMongoose | null> {
     try {
       const result = await this.model.findById(id);
 
@@ -73,7 +73,7 @@ class UserService {
     }
   }
 
-  async getOne(filter: any): Promise<IUserMongoose | null> {
+  async getOne(filter: any): Promise<IAdminMongoose | null> {
     try {
       const result = await this.model.findOne(filter);
 
@@ -96,7 +96,7 @@ class UserService {
     }
   }
 
-  async create(data: IUser): Promise<IUser | null> {
+  async create(data: IAdmin): Promise<IAdmin | null> {
     try {
       const created = await this.model.create(data);
       return created;
@@ -111,7 +111,7 @@ class UserService {
     }
   }
 
-  async update(id: string, data: Partial<IUser>): Promise<IUser | null> {
+  async update(id: string, data: Partial<IAdmin>): Promise<IAdmin | null> {
     try {
       const updated = await this.model.findByIdAndUpdate(id, data, {
         new: true,
@@ -135,7 +135,7 @@ class UserService {
     }
   }
 
-  async softDelete(id: string): Promise<IUser | null> {
+  async softDelete(id: string): Promise<IAdmin | null> {
     try {
       const softDeleted = await this.model.findByIdAndUpdate(
         id,
@@ -161,7 +161,7 @@ class UserService {
     }
   }
 
-  async strongDelete(id: string): Promise<IUser | null> {
+  async strongDelete(id: string): Promise<IAdmin | null> {
     try {
       const strongDeleted = await this.model.findByIdAndDelete(id);
 
