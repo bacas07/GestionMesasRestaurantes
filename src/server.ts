@@ -6,6 +6,7 @@ import { Request, Response, NextFunction } from 'express';
 import { connectDB } from './database/mongo.js';
 
 // Rutas principales
+import AdminRouter from './routes/admin.routes.js';
 import UserRouter from './routes/user.routes.js';
 import ReservationRouter from './routes/reservation.routes.js';
 import TableRouter from './routes/table.routes.js';
@@ -56,6 +57,7 @@ server.get('', (req: Request, res: Response, next: NextFunction) => {
   res.json({ message: 'Bienvenido al Sistema de Reservas' });
 });
 
+server.use('/admin', AdminRouter);
 server.use('/user', UserRouter);
 server.use('/reservation', ReservationRouter);
 server.use('/table', TableRouter);
