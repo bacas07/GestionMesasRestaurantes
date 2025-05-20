@@ -73,4 +73,11 @@ AdminRouter.post(
   }
 );
 
+AdminRouter.post(
+  '/login',
+  (req: Request, res: Response, next: NextFunction) => {
+    AdminController.login(req, res, next);
+  }
+);
+
 export default AdminRouter;

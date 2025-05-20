@@ -5,7 +5,7 @@ import { AdminSchema } from '../validators/validators.js';
 import type { IAdmin } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 import { hash, verify } from 'argon2';
-import { generateUserToken } from '../utils/auth.js';
+import { generateAdminToken } from '../utils/auth.js';
 
 class AdminController {
   private model = AdminModel;
@@ -126,9 +126,9 @@ class AdminController {
           adminkey,
         } = req.body;
 
-        const userExist = await this.model.getOne({ email });
+        const adminExist = await this.model.getOne({ email });
 
-        if (userExist) {
+        if (adminExist) {
           throw new ApiError(
             `Ya existe un usuario con este emai: ${email}`,
             400
@@ -171,25 +171,27 @@ class AdminController {
       }
 
       const { email, password } = req.body;
-      const userExist = await this.model.getOne({ email });
+      const adminExist = await this.model.getOne({ email });
 
-      if (!userExist) {
+      if (!adminExist) {
         throw new ApiError(
           `No existe un usuario con este emai!!: ${email}`,
           400
         );
       }
 
-      const validPassword = await verify(userExist.password, password);
+      const validPassword = await verify(adminExist.password, password);
 
       if (!validPassword) {
         throw new ApiError('Contraseña incorrecta', 401);
       }
 
-      /*const token = generateUserToken({
-        id: userExist._id,
-      });*/
-    } catch (error) {}
+      const token = generateAdminToken(adminExist);
+
+      return res.json({ token: token });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

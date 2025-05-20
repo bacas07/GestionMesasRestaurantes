@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { sign, verify } from 'jsonwebtoken';
-import { IUserMongoose } from '../types/types.js';
+import auth from 'jsonwebtoken';
+import { IAdminMongoose } from '../types/types.js';
 import { config } from 'dotenv';
 import ApiError from '../errors/apiError.js';
 
 config();
 
-export const generateUserToken = (user: Partial<IUserMongoose>) => {
+export const generateAdminToken = (user: Partial<IAdminMongoose>) => {
   const secret = process.env.JWT_SECRET_KEY;
 
   if (!secret) {
@@ -15,14 +15,10 @@ export const generateUserToken = (user: Partial<IUserMongoose>) => {
 
   const payload = {
     id: user._id,
-    name: user.name,
     email: user.email,
-    number: user.number,
-    history: user.history,
-    role: user.role,
   };
   try {
-    return sign(payload, secret, { expiresIn: '1000h' });
+    return auth.sign(payload, secret, { expiresIn: '1000h' });
   } catch (error) {
     throw new ApiError(
       `Error generando Token -> ${(error as Error).message}`,
@@ -31,7 +27,7 @@ export const generateUserToken = (user: Partial<IUserMongoose>) => {
   }
 };
 
-export const verifyUserToken = (
+export const verifyAdminToken = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -49,7 +45,7 @@ export const verifyUserToken = (
   }
 
   try {
-    const decoded = verify(token, secret);
+    const decoded = auth.verify(token, secret);
     res.locals.user = decoded;
     next();
   } catch (error) {

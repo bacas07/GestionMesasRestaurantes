@@ -5,7 +5,7 @@ import { UserSchema } from '../validators/validators.js';
 import type { IUser } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 import { hash, verify } from 'argon2';
-import { generateUserToken } from '../utils/auth.js';
+// import { generateUserToken } from '../utils/auth.js';
 
 class UserController {
   private model = userModel;
