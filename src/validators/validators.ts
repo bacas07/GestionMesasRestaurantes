@@ -1,5 +1,10 @@
 import * as valibot from 'valibot';
 
+export const AdminSchema = valibot.object({
+  email: valibot.pipe(valibot.string(), valibot.email()),
+  password: valibot.string(),
+});
+
 const statusReservationEnum = {
   pending: 'pending',
   confirmed: 'confirmed',
