@@ -116,39 +116,24 @@ class AdminController {
         }
 
         const {
-          name,
           email,
           password,
-          number,
-          role,
-          history,
-          is_active,
-          adminkey,
         } = req.body;
 
         const adminExist = await this.model.getOne({ email });
 
         if (adminExist) {
           throw new ApiError(
-            `Ya existe un usuario con este emai: ${email}`,
+            `Ya existe un Admin con este emai: ${email}`,
             400
           );
-        }
-
-        if (role === 'admin' && adminkey !== process.env.ADMIN_KEY) {
-          throw new ApiError(`Contraseña de administrador incorrecta`, 403);
         }
 
         const hashed = await hash(password);
 
         const parsedData = parse(AdminSchema, {
-          name,
           email,
           password: hashed,
-          number,
-          role,
-          history,
-          is_active,
         }) as IAdmin;
 
         const newUser = await this.model.create(parsedData);

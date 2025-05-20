@@ -108,6 +108,8 @@ class UserController {
     }
   }
 
+
+  /* Proximos features
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       try {
@@ -116,14 +118,8 @@ class UserController {
         }
 
         const {
-          name,
           email,
           password,
-          number,
-          role,
-          history,
-          is_active,
-          adminkey,
         } = req.body;
 
         const userExist = await this.model.getOne({ email });
@@ -135,20 +131,11 @@ class UserController {
           );
         }
 
-        if (role === 'admin' && adminkey !== process.env.ADMIN_KEY) {
-          throw new ApiError(`Contraseña de administrador incorrecta`, 403);
-        }
-
         const hashed = await hash(password);
 
         const parsedData = parse(UserSchema, {
-          name,
           email,
           password: hashed,
-          number,
-          role,
-          history,
-          is_active,
         }) as IUser;
 
         const newUser = await this.model.create(parsedData);
@@ -188,9 +175,9 @@ class UserController {
 
       /*const token = generateUserToken({
         id: userExist._id,
-      });*/
+      });
     } catch (error) {}
-  }
+  }*/
 }
 
 export default new UserController();
