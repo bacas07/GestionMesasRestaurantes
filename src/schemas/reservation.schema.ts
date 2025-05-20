@@ -26,7 +26,7 @@ const ReservationSchema = new Schema<IReservationMongoose>({
   status: {
     type: String,
     enum: ['pending', 'confirmed'],
-    default: 'confimed',
+    default: 'confirmed',
   },
   is_active: {
     type: Boolean,
