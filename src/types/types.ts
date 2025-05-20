@@ -24,6 +24,9 @@ export interface IReservation {
 // Interfaz para validar ingreso mesas
 export interface ITable {
   name: string;
+  capacity: string;
+  location: string;
+  status: string;
   is_active: boolean;
 }
 
@@ -49,5 +52,8 @@ export interface IReservationMongoose extends Document {
 
 export interface ITableMongoose extends Document {
   name: string;
+  capacity: string;
+  location: string;
+  status: string;
   is_active: boolean;
 }
