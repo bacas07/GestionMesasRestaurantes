@@ -126,6 +126,17 @@ class ReservationService {
     }
   }
 
+  async getByDate(day: string): Promise<IReservation[] | null> {
+    try {
+      const result = await this.model.find({ date: day });
+      return result;
+    } catch (error) {
+      throw new ApiError(
+        `Error Reservation model getSomes: ${(error as Error).message}`
+      );
+    }
+  }
+
   async create(data: IReservation): Promise<IReservation | null> {
     try {
       const created = await this.model.create(data);

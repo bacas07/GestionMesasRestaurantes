@@ -60,6 +60,14 @@ ReservationRouter.get(
   }
 );
 
+ReservationRouter.get(
+  '/getbydate/:date',
+  verifyAdminToken,
+  (req: Request, res: Response, next: NextFunction) => {
+    ReservationController.getByDate(req, res, next);
+  }
+);
+
 ReservationRouter.post(
   '/create',
   verifyAdminToken,

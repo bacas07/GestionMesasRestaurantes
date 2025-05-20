@@ -75,6 +75,16 @@ class ReservationController {
     }
   }
 
+  async getByDate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { day } = req.params;
+      const data = await this.model.getByDate(day.toString());
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       try {
