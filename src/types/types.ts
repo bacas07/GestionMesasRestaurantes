@@ -1,5 +1,11 @@
 import { Document } from 'mongoose';
 
+// Interfaz para validar ingreso de datos para admin
+export interface IAdmin {
+  email: string;
+  password: string;
+}
+
 // interfaz para validar ingreso de datos para user
 export interface IUser {
   name: string;
@@ -32,6 +38,11 @@ export interface ITable {
 }
 
 // Interfaz para creacion de modelo con mongoose
+export interface IAdminMongoose extends Document {
+  email: string;
+  password: string;
+}
+
 export interface IUserMongoose extends Document {
   name: string;
   email: string;
