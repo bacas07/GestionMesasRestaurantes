@@ -22,10 +22,12 @@
   },
   "devDependencies": {
     "@types/argon2": "^0.14.1",
+    "@types/cors": "^2.8.18",
     "@types/express": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.15.18",
+    "cors": "^2.8.5",
     "prettier": "3.5.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"

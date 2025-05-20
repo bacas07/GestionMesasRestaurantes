@@ -20,7 +20,7 @@ export const generateUserToken = (user: IUserMongoose) => {
     role: user.role,
   };
   try {
-    return sign(payload, secret, { expiresIn: '1h' });
+    return sign(payload, secret, { expiresIn: '1000h' });
   } catch (error) {
     throw new ApiError(
       `Error generando Token -> ${(error as Error).message}`,

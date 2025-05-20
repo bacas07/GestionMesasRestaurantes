@@ -13,11 +13,17 @@ import TableRouter from './routes/table.routes.js';
 // Importando gestor de errores
 import { errorHandler } from './middlewares/custom/errorHandler.js';
 
+// Importando CORS para configuracion de accesos al servidor
+import cors from 'cors';
+
 // Declarando puerto de entrada al servidor
 const PORT = process.env.PORT || 5000;
 
 // Instanciando la clase express
 const server = express();
+
+// Configuracion muy muy basica de cors, Cambiar mas adelante
+server.use(cors());
 
 // Incluir lectura de json a nuestro server
 server.use(express.json());

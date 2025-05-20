@@ -18,6 +18,7 @@ export interface IReservation {
   date: string;
   hour: string;
   people: number;
+  status: string;
   is_active: boolean;
 }
 
@@ -47,6 +48,7 @@ export interface IReservationMongoose extends Document {
   date: string;
   hour: string;
   people: number;
+  status: string;
   is_active: boolean;
 }
 

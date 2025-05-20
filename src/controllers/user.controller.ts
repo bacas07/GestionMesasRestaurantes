@@ -4,7 +4,7 @@ import { parse } from 'valibot';
 import { UserSchema } from '../validators/validators.js';
 import type { IUser } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
-import { hash } from 'argon2';
+import { hash, verify } from 'argon2';
 
 class UserController {
   private model = userModel;
@@ -171,6 +171,19 @@ class UserController {
 
       const { email, password } = req.body;
       const userExist = await this.model.getOne({ email });
+
+      if (!userExist) {
+        throw new ApiError(
+          `No existe un usuario con este emai!!: ${email}`,
+          400
+        );
+      }
+
+      const validPassword = await verify(userExist.password, password);
+
+      if (!validPassword) {
+        throw new ApiError('Contraseña incorrecta', 401)
+      }
     } catch (error) {}
   }
 }
