@@ -41,7 +41,7 @@ export const verifyAdminToken = (
   const token = req.header('Authorization')?.replace('Bearer ', '');
 
   if (!token) {
-    throw new ApiError('Token Required', 401);
+    throw new ApiError('Admin Token Required', 401);
   }
 
   try {

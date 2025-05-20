@@ -108,7 +108,6 @@ class UserController {
     }
   }
 
-
   /* Proximos features
   async register(req: Request, res: Response, next: NextFunction) {
     try {
