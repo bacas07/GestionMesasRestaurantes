@@ -109,51 +109,70 @@ class UserController {
 
   async register(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.body || typeof req.body !== 'object') {
-        return res.status(400).json({ error: 'Payload invalido' });
+      try {
+        if (!req.body || typeof req.body !== 'object') {
+          return res.status(400).json({ error: 'Payload invalido' });
+        }
+
+        const {
+          name,
+          email,
+          password,
+          number,
+          role,
+          history,
+          is_active,
+          adminkey,
+        } = req.body;
+
+        const userExist = await this.model.getOne({ email });
+
+        if (userExist) {
+          throw new ApiError(
+            `Ya existe un usuario con este emai: ${email}`,
+            400
+          );
+        }
+
+        if (role === 'admin' && adminkey !== process.env.ADMIN_KEY) {
+          throw new ApiError(`Contraseña de administrador incorrecta`, 403);
+        }
+
+        const hashed = await hash(password);
+
+        const parsedData = parse(UserSchema, {
+          name,
+          email,
+          password: hashed,
+          number,
+          role,
+          history,
+          is_active,
+        }) as IUser;
+
+        const newUser = await this.model.create(parsedData);
+        return res.status(201).json(newUser);
+      } catch (ValidationError) {
+        throw new ApiError(
+          `Error en la validacion de los datos -> ${ValidationError}`,
+          400
+        );
       }
-
-      const {
-        name,
-        email,
-        password,
-        number,
-        role,
-        history,
-        is_active,
-        adminkey,
-      } = req.body;
-
-      const userExist = await this.model.getOne({ email });
-
-      if (userExist) {
-        throw new ApiError(`Ya existe un usuario con este emai: ${email}`, 400);
-      }
-
-      if (role === 'admin' && adminkey !== process.env.ADMIN_KEY) {
-        throw new ApiError(`Contraseña de administrador incorrecta`, 403);
-      }
-
-      const hashed = await hash(password);
-
-      const parsedData = parse(UserSchema, {
-        name,
-        email,
-        password: hashed,
-        number,
-        role,
-        history,
-        is_active,
-      }) as IUser;
-
-      const newUser = await this.model.create(parsedData);
-      return res.status(201).json(newUser);
     } catch (error) {
       next(error);
     }
   }
 
-  async login(req: Request, res: Response, next: NextFunction) {}
+  async login(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (!req.body || typeof req.body !== 'object') {
+        return res.status(400).json({ error: 'Payload invalido' });
+      }
+
+      const { email, password } = req.body;
+      const userExist = await this.model.getOne({ email });
+    } catch (error) {}
+  }
 }
 
 export default new UserController();

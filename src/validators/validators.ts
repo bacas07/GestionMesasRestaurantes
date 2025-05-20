@@ -20,7 +20,6 @@ export const UserSchema = valibot.object({
   password: valibot.string(),
   number: valibot.optional(valibot.string()),
   role: valibot.optional(valibot.enum(roleEnum)),
-  adminkey: valibot.optional(valibot.string()),
   is_active: valibot.optional(valibot.boolean(), true),
   history: valibot.optional(valibot.array(ReservationSchema), []),
 });
