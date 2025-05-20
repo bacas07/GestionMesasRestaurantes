@@ -14,7 +14,7 @@ import TableRouter from './routes/table.routes.js';
 import { errorHandler } from './middlewares/custom/errorHandler.js';
 
 // Importando CORS para configuracion de accesos al servidor
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 
 // Declarando puerto de entrada al servidor
 const PORT = process.env.PORT || 5000;
@@ -22,8 +22,29 @@ const PORT = process.env.PORT || 5000;
 // Instanciando la clase express
 const server = express();
 
+// Lista blanca de dominios permitidos
+const whitelist: string[] = [
+  'http://localhost:8080',
+  'https://powerful-thicket-20953-b0be64efe5ec.herokuapp.com/',
+];
+
+// Configuración de opciones de CORS
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
 // Configuracion muy muy basica de cors, Cambiar mas adelante
-server.use(cors());
+server.use(cors(corsOptions));
 
 // Incluir lectura de json a nuestro server
 server.use(express.json());
