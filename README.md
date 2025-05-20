@@ -1,117 +1,86 @@
-﻿# API RESTful con Node.js, Express y TypeScript
+﻿A continuación se presenta la **documentación completa** de los endpoints disponibles en la aplicación, organizada por recurso (**admin**, **users**, **tables**, **reservations**). Para cada ruta se indica:
 
-Este proyecto expone una API RESTful construida con **Node.js** y **Express**, usando **TypeScript** compilado en la carpeta `dist`. Permite gestionar usuarios, mesas y reservas con operaciones **CRUD**, baja lógica/física y filtros de estado (`is_active`). Es ideal para integrarse con clientes frontend y desplegarse en plataformas como Heroku.
-
----
-
-## Instalación
-
-Sigue estos pasos para configurar y ejecutar el proyecto localmente:
-
-1.  **Clonar el repositorio**
-
-    ```bash
-    git clone [https://github.com/bacas07/GestionMesasClientesProduccion](https://github.com/bacas07/GestionMesasClientesProduccion)
-    cd tu_repo
-    ```
-
-2.  **Instalar dependencias**
-
-    * Desde la raíz (solo instala herramientas de desarrollo):
-        ```bash
-        npm install
-        ```
-    * En la carpeta `dist` deben estar solo las dependencias de producción. Asegúrate de copiar el `package.json` definitivo allí antes de hacer deploy en Heroku.
-
-3.  **Compilar TypeScript al directorio `dist`**
-
-    ```bash
-    npm run build
-    ```
-
-4.  **Configurar variables de entorno**
-
-    Crea un archivo `.env` en la raíz de tu proyecto con al menos las siguientes variables:
-
-    ```
-    MONGODB_URI=<tu_uri_de_mongodb>
-    JWT_SECRET_KEY=<tu_clave_secreta>
-    PORT=5000
-    ```
-
-5.  **Ejecutar localmente**
-
-    * Desde la raíz (modo desarrollo con hot-reload):
-        ```bash
-        npm run start:dev
-        ```
-    * O, para ejecutar la versión compilada desde `dist`:
-        ```bash
-        cd dist
-        npm start
-        ```
+* **Método HTTP**: Verbo utilizado.
+* **Endpoint**: Ruta completa (asumiendo prefijo `/api/{recurso}`).
+* **Descripción**: Función que cumple.
+* **Parámetros de URL / Query**: Campos en la ruta o query.
+* **Body (JSON)**: Objeto esperado en el cuerpo de la petición.
 
 ---
 
-## Uso de la API
+## 1. Admin (prefijo `/admin`)
 
-La base URL por defecto es: `http://localhost:5000`
+| Método | Endpoint | Descripción | Params URL/Query | Body (JSON) |
+| :----- | :------- | :---------- | :--------------- | :---------- |
+| `GET` | `/getall` | Obtener todos los administradores | — | — |
+| `GET` | `/getallactive` | Obtener administradores activos | — | — |
+| `GET` | `/getallunactive` | Obtener administradores inactivos | — | — |
+| `GET` | `/getbyid/:id` | Obtener administrador por ID | `id` (string) | — |
+| `GET` | `/getone/:filter` | Obtener un admin según filtro JSON | `filter` (string)¹ | — |
+| `POST` | `/create` | Crear nuevo administrador | — | `{ email: string, password: string }` |
+| `PUT` | `/update/:id` | Actualizar administrador | `id` (string) | `{ email?: string, password?: string }` |
+| `DELETE` | `/softdelete/:id` | Desactivar (soft delete) admin | `id` (string) | — |
+| `DELETE` | `/strongdelete/:id` | Eliminar definitivamente admin | `id` (string) | — |
+| `POST` | `/login` | Autenticar admin y obtener token | — | `{ email: string, password: string }` |
 
-Todas las rutas devuelven **JSON** y utilizan **códigos HTTP estándares** (200, 201, 400, 404, 500, etc.), gestionados por el middleware `errorHandler`.
-
-### Autenticación (opcional)
-
-Para rutas protegidas, envía el siguiente encabezado en tus peticiones:
-
-
----
-
-## Endpoints
-
-### Usuarios (`/user`)
-
-| MÉTODO | RUTA                     | DESCRIPCIÓN                                        |
-| :----- | :----------------------- | :------------------------------------------------- |
-| `GET`  | `/user/getall`           | Lista todos los usuarios (activos e inactivos).    |
-| `GET`  | `/user/getallactive`     | Solo usuarios con `is_active=true`.                |
-| `GET`  | `/user/getallunactive`   | Solo usuarios con `is_active=false`.               |
-| `GET`  | `/user/getbyid/:id`      | Obtiene usuario por `_id` (parámetro URL).         |
-| `GET`  | `/user/getone?field=valor` | Primer match según query (e.g., `email`, `name`).  |
-| `POST` | `/user/create`           | Crea un nuevo usuario. Body: `{ name, email, phone? }`. |
-| `PUT`  | `/user/update`           | Actualiza un usuario. Body: `{ id, campo1, campo2, ... }`. |
-| `DELETE`|`/user/softdelete/:id`   | Baja lógica (establece `is_active=false`).         |
-| `DELETE`|`/user/strongdelete/:id` | Baja física (elimina el registro permanentemente). |
+¹ El parámetro `filter` se recibe como string con un JSON serializado (p.ej. `filter={"email":"admin@..."}`).
 
 ---
 
-### Mesas (`/table`)
+## 2. Users (prefijo `/user`)
 
-| MÉTODO | RUTA                     | DESCRIPCIÓN                                        |
-| :----- | :----------------------- | :------------------------------------------------- |
-| `GET`  | `/table/getall`          | Todas las mesas.                                   |
-| `GET`  | `/table/getallactive`    | Mesas con `is_active=true`.                        |
-| `GET`  | `/table/getallunactive`  | Mesas con `is_active=false`.                       |
-| `GET`  | `/table/getbyid/:id`     | Mesa por `_id`.                                    |
-| `GET`  | `/table/getone?field=valor`| Primer match (e.g., `capacity=4`).                 |
-| `POST` | `/table/create`          | Crea una nueva mesa. Body: `{ number, capacity }`. |
-| `PUT`  | `/table/update`          | Actualiza una mesa. Body: `{ id, campo... }`.      |
-| `DELETE`|`/table/softdelete/:id`  | Baja lógica.                                       |
-| `DELETE`|`/table/strongdelete/:id`| Baja física.                                       |
+| Método | Endpoint | Descripción | Params URL/Query | Body (JSON) |
+| :----- | :------- | :---------- | :--------------- | :---------- |
+| `GET` | `/getall` | Obtener todos los usuarios | — | — |
+| `GET` | `/getallactive` | Obtener usuarios activos | — | — |
+| `GET` | `/getallunactive` | Obtener usuarios inactivos | — | — |
+| `GET` | `/getbyid/:id` | Obtener usuario por ID | `id` (string) | — |
+| `GET` | `/getone/:filter` | Obtener un usuario según filtro | `filter` (string)¹ | — |
+| `POST` | `/create` | Crear nuevo usuario | — | ``{ name: string, email: string, password: string, number?: string, role?: "user"}` |
+| `PUT` | `/update/:id` | Actualizar usuario | `id` (string) | Igual al body de create, todos opcionales |
+| `DELETE` | `/softdelete/:id` | Desactivar (soft delete) usuario | `id` (string) | — |
+| `DELETE` | `/strongdelete/:id` | Eliminar definitivamente usuario | `id` (string) | — |
+
+¹ Mismo comportamiento de filtro JSON que en Admin.
 
 ---
 
-### Reservas (`/reservation`)
+## 3. Tables (prefijo `/table`)
 
-| MÉTODO | RUTA                               | DESCRIPCIÓN                                        |
-| :----- | :--------------------------------- | :------------------------------------------------- |
-| `GET`  | `/reservation/getall`              | Todas las reservas.                                |
-| `GET`  | `/reservation/getallactive`        | Reservas con `is_active=true`.                     |
-| `GET`  | `/reservation/getallunactive`      | Reservas con `is_active=false`.                    |
-| `GET`  | `/reservation/getbyid/:id`         | Reserva por `_id`.                                 |
-| `GET`  | `/reservation/getone?field=valor`  | Primer match (e.g., `date=2025-05-20`).            |
-| `GET`  | `/reservation/getbyuserid?userId=…`| Filtra reservas por `userId`.                      |
-| `GET`  | `/reservation/getbytableid?tableId=…`| Filtra reservas por `tableId`.                     |
-| `POST` | `/reservation/create`              | Crea una reserva. Body: `{ userId, tableId, date: "YYYY-MM-DD", time: "HH:mm", people }`. |
-| `PUT`  | `/reservation/update`              | Actualiza una reserva. Body: `{ id, campo... }`.   |
-| `DELETE`|`/reservation/softdelete/:id`      | Baja lógica.                                       |
-| `DELETE`|`/reservation/strongdelete/:id`    | Baja física.                                       |
+| Método | Endpoint | Descripción | Params URL/Query | Body (JSON) |
+| :----- | :------- | :---------- | :--------------- | :---------- |
+| `GET` | `/getall` | Obtener todas las mesas | — | — |
+| `GET` | `/getallactive` | Obtener mesas activas | — | — |
+| `GET` | `/getallunactive` | Obtener mesas inactivas | — | — |
+| `GET` | `/getbyid/:id` | Obtener mesa por ID | `id` (string) | — |
+| `GET` | `/getone/:filter` | Obtener mesa según filtro | `filter` (string)¹ | — |
+| `POST` | `/create` | Crear nueva mesa | — | `{ name: string, capacity: string, location: <enum>, status?: <enum>, is_active?: boolean }` |
+| `PUT` | `/update/:id` | Actualizar mesa | `id` (string) | Igual al schema de creación, todos campos opcionales |
+| `DELETE` | `/softdelete/:id` | Desactivar (soft delete) mesa | `id` (string) | — |
+| `DELETE` | `/strongdelete/:id` | Eliminar definitivamente mesa | `id` (string) | — |
+
+¹ Filtro JSON serializado.
+
+---
+
+## 4. Reservations (prefijo `/reservation`)
+
+| Método | Endpoint | Descripción | Params URL/Query | Body (JSON) |
+| :----- | :------- | :---------- | :--------------- | :---------- |
+| `GET` | `/getall` | Obtener todas las reservaciones | — | — |
+| `GET` | `/getallactive` | Obtener reservaciones activas | — | — |
+| `GET` | `/getallunactive` | Obtener reservaciones inactiva | — | — |
+| `GET` | `/getbyid/:id` | Obtener reservación por ID | `id` (string) | — |
+| `GET` | `/getone/:filter` | Obtener reserva según filtro | `filter` (string)¹ | — |
+| `POST` | `/create` | Crear nueva reservación | — | ``{ userId: string, tableId: string, date: string, hour: string, people: number, status?: "pending"}` |
+| `PUT` | `/update/:id` | Actualizar reservación | `id` (string) | Igual al schema de creación, campos opcionales |
+| `DELETE` | `/softdelete/:id` | Desactivar (soft delete) reservación | `id` (string) | — |
+| `DELETE` | `/strongdelete/:id` | Eliminar definitivamente reservación | `id` (string) | — |
+
+¹ Para `/getone/:filter` se espera un JSON serializado como string.
+
+---
+
+**Nota**: Todos los endpoints que requieren autenticación de administrador usan el middleware `verifyAdminToken`. Las rutas comentadas o en desarrollo (`/register` en Users) no están activas.
+
+Con esta documentación, el equipo de frontend podrá comprender rápidamente qué rutas existen, cómo invocarlas y qué datos enviar o recibir en cada caso.
