@@ -57,4 +57,11 @@ UserRouter.delete(
   }
 );
 
+UserRouter.post(
+  '/register',
+  (req: Request, res: Response, next: NextFunction) => {
+    UserController.register(req, res, next);
+  }
+);
+
 export default UserRouter;

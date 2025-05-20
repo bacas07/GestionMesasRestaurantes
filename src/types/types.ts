@@ -4,7 +4,8 @@ import { Document } from 'mongoose';
 export interface IUser {
   name: string;
   email: string;
-  number: number;
+  password: string;
+  number: string;
   history: [IReservation];
   is_active: boolean;
   role: string;
@@ -30,7 +31,8 @@ export interface ITable {
 export interface IUserMongoose extends Document {
   name: string;
   email: string;
-  number: number;
+  password: string;
+  number: string;
   history: [IReservation];
   is_active: boolean;
   role: string;

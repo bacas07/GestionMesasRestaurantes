@@ -35,8 +35,11 @@ const UserSchema = new Schema<IUserMongoose>({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+  },
   number: {
-    type: Number,
+    type: String,
   },
   history: {
     type: [ReservationSchema],
