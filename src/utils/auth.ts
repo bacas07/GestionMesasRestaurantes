@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { sign, verify } from 'jsonwebtoken';
-import { IUserMongoose } from '../types/types';
+import { IUserMongoose } from '../types/types.js';
 import { config } from 'dotenv';
-import ApiError from '../errors/apiError';
+import ApiError from '../errors/apiError.js';
 
 config();
 
-export const generateUserToken = (user: IUserMongoose) => {
+export const generateUserToken = (user: Partial<IUserMongoose>) => {
   const secret = process.env.JWT_SECRET_KEY;
 
   if (!secret) {
@@ -17,6 +17,8 @@ export const generateUserToken = (user: IUserMongoose) => {
     id: user._id,
     name: user.name,
     email: user.email,
+    number: user.number,
+    history: user.history,
     role: user.role,
   };
   try {

@@ -1,5 +1,5 @@
 import { UserModel } from '../schemas/user.schema.js';
-import { IUser } from '../types/types.js';
+import { IUser, IUserMongoose } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 import { Types } from 'mongoose';
 
@@ -51,7 +51,7 @@ class UserService {
     }
   }
 
-  async getById(id: string): Promise<IUser | null> {
+  async getById(id: string): Promise<IUserMongoose | null> {
     try {
       const result = await this.model.findById(id);
 
@@ -74,7 +74,7 @@ class UserService {
     }
   }
 
-  async getOne(filter: any): Promise<IUser | null> {
+  async getOne(filter: any): Promise<IUserMongoose | null> {
     try {
       const result = await this.model.findOne(filter);
 

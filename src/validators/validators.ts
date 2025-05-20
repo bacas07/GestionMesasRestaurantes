@@ -1,11 +1,17 @@
 import * as valibot from 'valibot';
 
+const statusReservationEnum = {
+  pending: 'pending',
+  confirmed: 'confirmed',
+};
+
 export const ReservationSchema = valibot.object({
   userId: valibot.string(),
   tableId: valibot.string(),
   date: valibot.string(),
   hour: valibot.string(),
   people: valibot.number(),
+  status: valibot.optional(valibot.enum(statusReservationEnum), 'pending'),
   is_active: valibot.optional(valibot.boolean(), true),
 });
 

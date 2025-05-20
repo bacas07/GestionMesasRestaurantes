@@ -5,6 +5,7 @@ import { UserSchema } from '../validators/validators.js';
 import type { IUser } from '../types/types.js';
 import ApiError from '../errors/apiError.js';
 import { hash, verify } from 'argon2';
+import { generateUserToken } from '../utils/auth.js';
 
 class UserController {
   private model = userModel;
@@ -182,8 +183,12 @@ class UserController {
       const validPassword = await verify(userExist.password, password);
 
       if (!validPassword) {
-        throw new ApiError('Contraseña incorrecta', 401)
+        throw new ApiError('Contraseña incorrecta', 401);
       }
+
+      /*const token = generateUserToken({
+        id: userExist._id,
+      });*/
     } catch (error) {}
   }
 }

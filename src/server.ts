@@ -24,8 +24,10 @@ const server = express();
 
 // Lista blanca de dominios permitidos
 const whitelist: string[] = [
+  'http://localhost:3000',
   'http://localhost:8080',
   'https://powerful-thicket-20953-b0be64efe5ec.herokuapp.com/',
+  'https://restaurant-reservation-livid.vercel.app/',
 ];
 
 // Configuración de opciones de CORS
