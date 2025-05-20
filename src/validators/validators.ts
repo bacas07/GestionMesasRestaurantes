@@ -42,6 +42,6 @@ export const TableSchema = valibot.object({
   name: valibot.string(),
   capacity: valibot.string(),
   location: valibot.enum(locationEnum),
-  status: valibot.enum(statusEnum),
+  status: valibot.optional(valibot.enum(statusEnum), 'available'),
   is_active: valibot.optional(valibot.boolean(), true),
 });
