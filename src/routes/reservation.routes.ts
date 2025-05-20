@@ -25,28 +25,28 @@ ReservationRouter.get(
 );
 
 ReservationRouter.get(
-  '/getbyid',
+  '/getbyid/:id',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.getById(req, res, next);
   }
 );
 
 ReservationRouter.get(
-  '/getone',
+  '/getone/:filter',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.getOne(req, res, next);
   }
 );
 
 ReservationRouter.get(
-  '/getbyuserid',
+  '/getbyuserid/:id',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.getByUserId(req, res, next);
   }
 );
 
 ReservationRouter.get(
-  '/getbytableid',
+  '/getbytableid/:id',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.getByTableId(req, res, next);
   }
@@ -60,21 +60,21 @@ ReservationRouter.post(
 );
 
 ReservationRouter.put(
-  '/update',
+  '/update/:id',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.update(req, res, next);
   }
 );
 
 ReservationRouter.delete(
-  '/softdelete',
+  '/softdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.softDelete(req, res, next);
   }
 );
 
 ReservationRouter.delete(
-  '/strongdelete',
+  '/strongdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     ReservationController.strongDelete(req, res, next);
   }

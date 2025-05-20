@@ -22,13 +22,13 @@ TableRouter.get(
 );
 
 TableRouter.get(
-  '/getbyid',
+  '/getbyid/:id',
   (req: Request, res: Response, next: NextFunction) => {
     TableController.getById(req, res, next);
   }
 );
 
-TableRouter.get('/getone', (req: Request, res: Response, next: NextFunction) => {
+TableRouter.get('/getone/:filter', (req: Request, res: Response, next: NextFunction) => {
   TableController.getOne(req, res, next);
 });
 
@@ -39,19 +39,19 @@ TableRouter.post(
   }
 );
 
-TableRouter.put('/update', (req: Request, res: Response, next: NextFunction) => {
+TableRouter.put('/update/:id', (req: Request, res: Response, next: NextFunction) => {
   TableController.update(req, res, next);
 });
 
 TableRouter.delete(
-  '/softdelete',
+  '/softdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     TableController.softDelete(req, res, next);
   }
 );
 
 TableRouter.delete(
-  '/strongdelete',
+  '/strongdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     TableController.strongDelete(req, res, next);
   }

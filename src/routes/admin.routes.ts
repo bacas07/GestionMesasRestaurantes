@@ -3,9 +3,12 @@ import AdminController from '../controllers/admin.controller.js';
 
 const AdminRouter = Router();
 
-AdminRouter.get('/getall', (req: Request, res: Response, next: NextFunction) => {
-  AdminController.getAll(req, res, next);
-});
+AdminRouter.get(
+  '/getall',
+  (req: Request, res: Response, next: NextFunction) => {
+    AdminController.getAll(req, res, next);
+  }
+);
 
 AdminRouter.get(
   '/getallactive',
@@ -22,15 +25,18 @@ AdminRouter.get(
 );
 
 AdminRouter.get(
-  '/getbyid',
+  '/getbyid/:id',
   (req: Request, res: Response, next: NextFunction) => {
     AdminController.getById(req, res, next);
   }
 );
 
-AdminRouter.get('/getone', (req: Request, res: Response, next: NextFunction) => {
-  AdminController.getOne(req, res, next);
-});
+AdminRouter.get(
+  '/getone/:filter',
+  (req: Request, res: Response, next: NextFunction) => {
+    AdminController.getOne(req, res, next);
+  }
+);
 
 AdminRouter.post(
   '/create',
@@ -39,19 +45,22 @@ AdminRouter.post(
   }
 );
 
-AdminRouter.put('/update', (req: Request, res: Response, next: NextFunction) => {
-  AdminController.update(req, res, next);
-});
+AdminRouter.put(
+  '/update/:id',
+  (req: Request, res: Response, next: NextFunction) => {
+    AdminController.update(req, res, next);
+  }
+);
 
 AdminRouter.delete(
-  '/softdelete',
+  '/softdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     AdminController.softDelete(req, res, next);
   }
 );
 
 AdminRouter.delete(
-  '/strongdelete',
+  '/strongdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     AdminController.strongDelete(req, res, next);
   }

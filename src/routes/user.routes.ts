@@ -22,13 +22,13 @@ UserRouter.get(
 );
 
 UserRouter.get(
-  '/getbyid',
+  '/getbyid/:id',
   (req: Request, res: Response, next: NextFunction) => {
     UserController.getById(req, res, next);
   }
 );
 
-UserRouter.get('/getone', (req: Request, res: Response, next: NextFunction) => {
+UserRouter.get('/getone/:filter', (req: Request, res: Response, next: NextFunction) => {
   UserController.getOne(req, res, next);
 });
 
@@ -39,19 +39,19 @@ UserRouter.post(
   }
 );
 
-UserRouter.put('/update', (req: Request, res: Response, next: NextFunction) => {
+UserRouter.put('/update/:id', (req: Request, res: Response, next: NextFunction) => {
   UserController.update(req, res, next);
 });
 
 UserRouter.delete(
-  '/softdelete',
+  '/softdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     UserController.softDelete(req, res, next);
   }
 );
 
 UserRouter.delete(
-  '/strongdelete',
+  '/strongdelete/:id',
   (req: Request, res: Response, next: NextFunction) => {
     UserController.strongDelete(req, res, next);
   }
