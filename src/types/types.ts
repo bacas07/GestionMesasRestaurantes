@@ -35,6 +35,14 @@ export interface ITable {
   is_active: boolean;
 }
 
+export interface INotificacion {
+  type: string;
+  recipient: string;
+  subject: string;
+  dat: string;
+  status: string;
+}
+
 // Interfaz para creacion de modelo con mongoose
 export interface IAdminMongoose extends Document {
   email: string;
