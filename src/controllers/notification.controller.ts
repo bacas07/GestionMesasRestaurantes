@@ -3,6 +3,7 @@ import NotificationModel from '../models/notification.model.js';
 import { parse } from 'valibot';
 import { NotificationSchema } from '../validators/validators.js';
 import type { INotification } from '../types/types.js';
+import sendMail from '../services/mailer.service.js';
 import ApiError from '../errors/apiError.js';
 
 class NotificationController {
@@ -101,6 +102,39 @@ class NotificationController {
       const { id } = req.params;
       const data = await this.model.strongDelete(id);
       return res.status(204).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async sendNotification(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = parse(NotificationSchema, {
+        ...req.body,
+        date: new Date().toISOString(),
+      }) as INotification;
+
+      // Creamos la notificación en DB
+      const notificationDoc = (await this.model.create(data)) as INotification; // Corrección: Usamos INotification
+      if (!notificationDoc) {
+        throw new ApiError('No se pudo crear la notificación', 500);
+      }
+
+      // Intento de envío
+      try {
+        await sendMail(notificationDoc);
+        // @ts-ignore
+        notificationDoc.status = 'sent';
+      } catch (sendError) {
+        // @ts-ignore
+        notificationDoc.status = 'error';
+      }
+
+      // Guardar estado actualizado
+      // @ts-ignore
+      await this.model.update(notificationDoc.id, notificationDoc);
+
+      return res.status(201).json(notificationDoc);
     } catch (error) {
       next(error);
     }
