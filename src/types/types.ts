@@ -35,7 +35,7 @@ export interface ITable {
   is_active: boolean;
 }
 
-export interface INotificacion {
+export interface INotification {
   type: string;
   recipient: string;
   subject: string;
