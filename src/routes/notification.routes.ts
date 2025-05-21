@@ -76,4 +76,12 @@ NotificationRouter.delete(
   }
 );
 
+NotificationRouter.post(
+  '/send',
+  verifyAdminToken,
+  (req: Request, res: Response, next: NextFunction) => {
+    NotificationController.sendNotification(req, res, next);
+  }
+);
+
 export default NotificationRouter;
