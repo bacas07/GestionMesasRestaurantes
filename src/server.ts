@@ -24,11 +24,12 @@ const PORT = process.env.PORT || 5000;
 const server = express();
 
 // Lista blanca de dominios permitidos
-const whitelist: string[] = [
+/*const whitelist: string[] = [
   'http://localhost:3000',
   'http://localhost:8080',
   'https://powerful-thicket-20953-b0be64efe5ec.herokuapp.com/',
   'https://restaurant-reservation-livid.vercel.app/',
+  'https://restaurant-reservation-livid.vercel.app/'
 ];
 
 // Configuración de opciones de CORS
@@ -45,9 +46,10 @@ const corsOptions: CorsOptions = {
   credentials: true,
   optionsSuccessStatus: 204,
 };
+*/
 
 // Configuracion muy muy basica de cors, Cambiar mas adelante
-server.use(cors(corsOptions));
+server.use(cors());
 
 // Incluir lectura de json a nuestro server
 server.use(express.json());
