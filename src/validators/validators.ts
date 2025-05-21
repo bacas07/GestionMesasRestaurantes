@@ -3,6 +3,7 @@ import * as valibot from 'valibot';
 export const AdminSchema = valibot.object({
   email: valibot.pipe(valibot.string(), valibot.email()),
   password: valibot.string(),
+  is_active: valibot.optional(valibot.boolean(), true),
 });
 
 const statusReservationEnum = {
@@ -53,19 +54,20 @@ const typeEnum = {
   confirmation: 'confirmation',
   modification: 'modification',
   cancellation: 'cancellation',
-  reminder: 'reminder'
-}
+  reminder: 'reminder',
+};
 
 const statusNotificationEnum = {
   pending: 'pending',
   sent: 'sent',
-  error: 'error'
-}
+  error: 'error',
+};
 
 export const NotificationSchema = valibot.object({
   type: valibot.enum(typeEnum),
   recipient: valibot.string(),
   subject: valibot.string(),
   date: valibot.string(),
-  status: valibot.optional(valibot.enum(statusNotificationEnum), 'pending')
-})
+  status: valibot.optional(valibot.enum(statusNotificationEnum), 'pending'),
+  is_active: valibot.optional(valibot.boolean(), true),
+});

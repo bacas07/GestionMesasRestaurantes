@@ -9,6 +9,7 @@ const ReservationSchema = new Schema<IReservation>({
   tableId: {
     type: String,
     required: true,
+    unique: true,
   },
   date: {
     type: String,
@@ -21,6 +22,14 @@ const ReservationSchema = new Schema<IReservation>({
   people: {
     type: Number,
     required: true,
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'confirmed'],
+    default: 'confirmed',
+  },
+  is_active: {
+    type: Boolean,
   },
 });
 

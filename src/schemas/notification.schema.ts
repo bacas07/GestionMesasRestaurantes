@@ -24,6 +24,10 @@ const NotificationSchema = new Schema<INotificationMongoose>({
     enum: ['pending', 'sent', 'error'],
     default: 'pending',
   },
+  is_active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export const NotificationModel = model<INotification>(

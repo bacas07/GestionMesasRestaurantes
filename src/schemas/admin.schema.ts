@@ -11,6 +11,10 @@ const AdminSchema = new Schema<IAdminMongoose>({
     type: String,
     required: true,
   },
+  is_active: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export const AdminModel = model<IAdmin>('Admin', AdminSchema, 'Admin');

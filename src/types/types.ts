@@ -4,6 +4,7 @@ import { Document } from 'mongoose';
 export interface IAdmin {
   email: string;
   password: string;
+  is_active: boolean;
 }
 
 // interfaz para validar ingreso de datos para user
@@ -41,12 +42,14 @@ export interface INotification {
   subject: string;
   date: string;
   status: string;
+  is_active: boolean;
 }
 
 // Interfaz para creacion de modelo con mongoose
 export interface IAdminMongoose extends Document {
   email: string;
   password: string;
+  is_active: boolean;
 }
 
 export interface IUserMongoose extends Document {
@@ -81,4 +84,5 @@ export interface INotificationMongoose extends Document {
   subject: string;
   date: string;
   status: string;
+  is_active: boolean;
 }
