@@ -77,12 +77,12 @@ class TableService {
     try {
       const result = await this.model.findOne(filter);
 
-      if (!result) {
+      /*if (!result) {
         throw new ApiError(
           `No se encontraron registros para el filtro: ${filter}`,
           404
         );
-      }
+      }*/
 
       return result;
     } catch (error) {
