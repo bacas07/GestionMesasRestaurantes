@@ -9,7 +9,6 @@ const ReservationSchema = new Schema<IReservationMongoose>({
   tableId: {
     type: String,
     required: true,
-    unique: true,
   },
   date: {
     type: String,
