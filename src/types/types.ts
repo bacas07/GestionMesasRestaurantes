@@ -10,11 +10,9 @@ export interface IAdmin {
 export interface IUser {
   name: string;
   email: string;
-  password: string;
   number: string;
   history: [IReservation];
   is_active: boolean;
-  role: string;
 }
 
 // Interfaz para validar ingreso de reservas para historial de usuario
@@ -46,11 +44,9 @@ export interface IAdminMongoose extends Document {
 export interface IUserMongoose extends Document {
   name: string;
   email: string;
-  password: string;
   number: string;
   history: [IReservation];
   is_active: boolean;
-  role: string;
 }
 
 export interface IReservationMongoose extends Document {

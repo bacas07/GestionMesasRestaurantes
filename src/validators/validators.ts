@@ -28,11 +28,9 @@ const roleEnum = {
 export const UserSchema = valibot.object({
   name: valibot.string(),
   email: valibot.pipe(valibot.string(), valibot.email()),
-  password: valibot.string(),
-  number: valibot.optional(valibot.string()),
-  role: valibot.optional(valibot.enum(roleEnum)),
-  is_active: valibot.optional(valibot.boolean(), true),
+  number: valibot.optional(valibot.string(), ''),
   history: valibot.optional(valibot.array(ReservationSchema), []),
+  is_active: valibot.optional(valibot.boolean(), true),
 });
 
 const locationEnum = {

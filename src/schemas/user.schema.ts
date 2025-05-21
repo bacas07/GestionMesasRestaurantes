@@ -34,11 +34,9 @@ const UserSchema = new Schema<IUserMongoose>({
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
-  },
   number: {
     type: String,
+    default: '',
   },
   history: {
     type: [ReservationSchema],
@@ -46,11 +44,6 @@ const UserSchema = new Schema<IUserMongoose>({
   is_active: {
     type: Boolean,
     default: true,
-  },
-  role: {
-    type: String,
-    default: 'user',
-    enum: ['user', 'admin'],
   },
 });
 
