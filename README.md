@@ -72,6 +72,7 @@
 | `GET` | `/getallunactive` | Obtener reservaciones inactiva | — | — |
 | `GET` | `/getbyid/:id` | Obtener reservación por ID | `id` (string) | — |
 | `GET` | `/getone/:filter` | Obtener reserva según filtro | `filter` (string)¹ | — |
+| `GET` | `/getbydate/:date` | Obtener reservaciones para un dia | `date` (string) | — |
 | `POST` | `/create` | Crear nueva reservación | — | ``{ userId: string, tableId: string, date: string, hour: string, people: number, status?: "pending"}` |
 | `PUT` | `/update/:id` | Actualizar reservación | `id` (string) | Igual al schema de creación, campos opcionales |
 | `DELETE` | `/softdelete/:id` | Desactivar (soft delete) reservación | `id` (string) | — |
