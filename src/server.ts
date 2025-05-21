@@ -10,6 +10,7 @@ import AdminRouter from './routes/admin.routes.js';
 import UserRouter from './routes/user.routes.js';
 import ReservationRouter from './routes/reservation.routes.js';
 import TableRouter from './routes/table.routes.js';
+import NotificationRouter from './routes/notification.routes.js';
 
 // Importando gestor de errores
 import { errorHandler } from './middlewares/custom/errorHandler.js';
@@ -63,6 +64,7 @@ server.use('/admin', AdminRouter);
 server.use('/user', UserRouter);
 server.use('/reservation', ReservationRouter);
 server.use('/table', TableRouter);
+server.use('/notification', NotificationRouter);
 
 server.use(errorHandler);
 
