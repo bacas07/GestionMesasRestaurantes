@@ -20,11 +20,6 @@ export const ReservationSchema = valibot.object({
   is_active: valibot.optional(valibot.boolean(), true),
 });
 
-const roleEnum = {
-  user: 'user',
-  admin: 'admin',
-};
-
 export const UserSchema = valibot.object({
   name: valibot.string(),
   email: valibot.pipe(valibot.string(), valibot.email()),
@@ -53,3 +48,24 @@ export const TableSchema = valibot.object({
   status: valibot.optional(valibot.enum(statusEnum), 'available'),
   is_active: valibot.optional(valibot.boolean(), true),
 });
+
+const typeEnum = {
+  confirmation: 'confirmation',
+  modification: 'modification',
+  cancellation: 'cancellation',
+  reminder: 'reminder'
+}
+
+const statusNotificationEnum = {
+  pending: 'pending',
+  sent: 'sent',
+  error: 'error'
+}
+
+export const NotificationSchema = valibot.object({
+  type: valibot.enum(typeEnum),
+  recipient: valibot.string(),
+  subject: valibot.string(),
+  date: valibot.string(),
+  status: valibot.optional(valibot.enum(statusNotificationEnum), 'pending')
+})

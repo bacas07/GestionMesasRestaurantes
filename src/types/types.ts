@@ -39,7 +39,7 @@ export interface INotification {
   type: string;
   recipient: string;
   subject: string;
-  dat: string;
+  date: string;
   status: string;
 }
 
@@ -73,4 +73,12 @@ export interface ITableMongoose extends Document {
   location: string;
   status: string;
   is_active: boolean;
+}
+
+export interface INotificationMongoose extends Document {
+  type: string;
+  recipient: string;
+  subject: string;
+  date: string;
+  status: string;
 }
